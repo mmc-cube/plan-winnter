@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>寒假任务管理器 🎯</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- 头部区域 -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title">
+                    <span class="emoji">🎯</span>
+                    寒假任务管理器
+                    <span class="emoji">📚</span>
+                </h1>
+
+                <!-- 假期倒计时 -->
+                <div class="countdown-container">
+                    <div class="countdown-card">
+                        <div class="countdown-icon">⏰</div>
+                        <div class="countdown-content">
+                            <div class="countdown-label">假期倒计时</div>
+                            <div class="countdown-value" id="countdown">
+                                <span id="days">--</span> 天
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主要内容区域 -->
+        <main class="main-content">
+            <!-- 任务库 -->
+            <section class="task-library">
+                <h2 class="section-title">
+                    <span class="emoji">📋</span>
+                    任务库
+                </h2>
+                <div class="task-items">
+                    <div class="task-item" draggable="true" data-task="学习">
+                        <span class="task-emoji">📖</span>
+                        <span class="task-name">学习</span>
+                    </div>
+                    <div class="task-item" draggable="true" data-task="运动">
+                        <span class="task-emoji">🏃‍♂️</span>
+                        <span class="task-name">运动</span>
+                    </div>
+                    <div class="task-item" draggable="true" data-task="阅读">
+                        <span class="task-emoji">📚</span>
+                        <span class="task-name">阅读</span>
+                    </div>
+                    <div class="task-item" draggable="true" data-task="编程">
+                        <span class="task-emoji">💻</span>
+                        <span class="task-name">编程</span>
+                    </div>
+                    <div class="task-item" draggable="true" data-task="休息">
+                        <span class="task-emoji">😴</span>
+                        <span class="task-name">休息</span>
+                    </div>
+                    <div class="task-item" draggable="true" data-task="娱乐">
+                        <span class="task-emoji">🎮</span>
+                        <span class="task-name">娱乐</span>
+                    </div>
+                </div>
+
+                <!-- 自定义任务输入 -->
+                <div class="custom-task">
+                    <input type="text" id="customTaskInput" placeholder="输入自定义任务..." maxlength="20">
+                    <button id="addCustomTask" class="btn-add">
+                        <span class="emoji">➕</span>
+                        添加
+                    </button>
+                </div>
+            </section>
+
+            <!-- 时间表 -->
+            <section class="schedule-section">
+                <div class="schedule-header">
+                    <h2 class="section-title">
+                        <span class="emoji">📅</span>
+                        今日时间表
+                    </h2>
+                    <div class="schedule-controls">
+                        <button id="prevDay" class="btn-nav">◀ 前一天</button>
+                        <span id="currentDate" class="current-date"></span>
+                        <button id="nextDay" class="btn-nav">后一天 ▶</button>
+                    </div>
+                </div>
+
+                <div class="schedule-container">
+                    <div class="time-slots" id="timeSlots">
+                        <!-- 固定5个时间段 -->
+                        <div class="time-slot" data-period="morning1">
+                            <div class="time-label">8:00 - 10:00</div>
+                            <div class="task-content">
+                                <div class="task-placeholder">点击或拖拽任务到这里</div>
+                            </div>
+                        </div>
+                        <div class="time-slot" data-period="morning2">
+                            <div class="time-label">10:00 - 12:00</div>
+                            <div class="task-content">
+                                <div class="task-placeholder">点击或拖拽任务到这里</div>
+                            </div>
+                        </div>
+                        <div class="time-slot" data-period="afternoon1">
+                            <div class="time-label">14:00 - 16:00</div>
+                            <div class="task-content">
+                                <div class="task-placeholder">点击或拖拽任务到这里</div>
+                            </div>
+                        </div>
+                        <div class="time-slot" data-period="afternoon2">
+                            <div class="time-label">16:00 - 18:00</div>
+                            <div class="task-content">
+                                <div class="task-placeholder">点击或拖拽任务到这里</div>
+                            </div>
+                        </div>
+                        <div class="time-slot" data-period="evening">
+                            <div class="time-label">19:00 - 21:00</div>
+                            <div class="task-content">
+                                <div class="task-placeholder">点击或拖拽任务到这里</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 统计模块 -->
+            <section class="stats-section">
+                <h2 class="section-title">
+                    <span class="emoji">📊</span>
+                    统计模块
+                </h2>
+
+                <!-- 任务选择器 -->
+                <div class="task-selector">
+                    <label for="taskSelect">选择任务：</label>
+                    <div class="custom-select">
+                        <div class="select-display" id="selectDisplay">
+                            <span class="selected-task">请选择任务</span>
+                            <span class="select-arrow">▼</span>
+                        </div>
+                        <div class="select-options" id="selectOptions">
+                            <div class="option" data-task="学习" data-emoji="📖">📖 学习</div>
+                            <div class="option" data-task="运动" data-emoji="🏃‍♂️">🏃‍♂️ 运动</div>
+                            <div class="option" data-task="阅读" data-emoji="📚">📚 阅读</div>
+                            <div class="option" data-task="编程" data-emoji="💻">💻 编程</div>
+                            <div class="option" data-task="休息" data-emoji="😴">😴 休息</div>
+                            <div class="option" data-task="娱乐" data-emoji="🎮">🎮 娱乐</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 计时控制 -->
+                <div class="timer-section">
+                    <div class="timer-display-large" id="timerDisplayLarge">00:00:00</div>
+                    <div class="timer-controls-main">
+                        <button id="startMainTimer" class="btn-timer-main btn-start-main">
+                            <span class="emoji">▶️</span>
+                            开始计时
+                        </button>
+                        <button id="pauseMainTimer" class="btn-timer-main btn-pause-main" style="display: none;">
+                            <span class="emoji">⏸️</span>
+                            暂停计时
+                        </button>
+                        <button id="stopMainTimer" class="btn-timer-main btn-stop-main">
+                            <span class="emoji">⏹️</span>
+                            结束计时
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 统计数据 -->
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-icon">📝</div>
+                        <div class="stat-content">
+                            <div class="stat-label">当前任务时间</div>
+                            <div class="stat-value" id="currentTaskTime">0分钟</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 今日统计按钮 -->
+                <div class="daily-stats-toggle">
+                    <button id="toggleDailyStats" class="btn-toggle-stats">
+                        <span class="emoji">📊</span>
+                        今日统计
+                        <span class="toggle-arrow">▼</span>
+                    </button>
+                </div>
+
+                <!-- 今日统计详情（可展开） -->
+                <div class="daily-stats-details" id="dailyStatsDetails" style="display: none;">
+                    <div class="stats-cards">
+                        <div class="stat-card">
+                            <div class="stat-icon">⏱️</div>
+                            <div class="stat-content">
+                                <div class="stat-label">今日总时间</div>
+                                <div class="stat-value" id="totalTime">0小时0分钟</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🎯</div>
+                            <div class="stat-content">
+                                <div class="stat-label">完成时间段</div>
+                                <div class="stat-value" id="completedPeriods">0/5</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📈</div>
+                            <div class="stat-content">
+                                <div class="stat-label">效率指数</div>
+                                <div class="stat-value" id="efficiency">0%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 任务详情弹窗 -->
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">任务详情</h3>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="task-info">
+                    <div class="info-item">
+                        <label>任务名称：</label>
+                        <span id="modalTaskName">--</span>
+                    </div>
+                    <div class="info-item">
+                        <label>时间段：</label>
+                        <span id="modalTimeRange">--</span>
+                    </div>
+                    <div class="info-item">
+                        <label>累计时间：</label>
+                        <span id="modalAccumulatedTime">0分钟</span>
+                    </div>
+                </div>
+
+                <div class="timer-controls">
+                    <button id="startTimer" class="btn-timer btn-start">
+                        <span class="emoji">▶️</span>
+                        开始计时
+                    </button>
+                    <button id="pauseTimer" class="btn-timer btn-pause" style="display: none;">
+                        <span class="emoji">⏸️</span>
+                        暂停计时
+                    </button>
+                    <button id="stopTimer" class="btn-timer btn-stop">
+                        <span class="emoji">⏹️</span>
+                        停止计时
+                    </button>
+                </div>
+
+                <div class="current-timer">
+                    <div class="timer-display" id="currentTimer">00:00:00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
